@@ -1,0 +1,51 @@
+message:
+	"@Hey there! {name(1)}, how have you been!?" next
+	"@It's been so long since I've seen you!" next 
+	"@ESPECIALLY here in the Church of all places..." next
+	"@Remember how when you and your family would come here every week," next 
+	"@You would always want to sit next to Lain for the entire Mass?" next 
+	"@You two used to be such close friends, sometimes I wonder..." next 
+	"@...Well, it makes sense. Friends drift apart all the time," next
+	"@Especially as they grow up, don't they?" next 
+	menu{
+		
+		"Lain?" : goto(AskAboutLain)
+		default "..." : goto(Nevermind)
+		
+	}
+	
+	AskAboutLain:
+		"@Hm? How is she? Ah, yes, I should tell you..." next 
+		"@Lain's been, well...fine." next 
+		"@She has been doing well in school at least..." next
+		"@And she also met a lot of people through her Skateboarding club."	next
+		"@Lain has been living in a house near her college with some of her friends." next
+		"@Just the other day, she even got a job at a nice resteraunt!" next
+		"@We even have the chain here, but it's not the location she works at, obvously." next
+		"@So if you ever want to try it, just let me know. I promise you its real good!" next
+		"@You know, I never had that kind of opportunity when I was your guys' age," next 
+		"@So I'm really happy for her!" next 
+		"@...But I'm a mother, you know? Of course I miss her so, so much." next
+		"@That's just part of being a mother though, having to accept the fact that," next
+		"@A bear cub will eventually leave it's mother's den." next
+		"@Like, those memories of you and Lain running around my house, playing with..." next
+		"@..Uh, legos? and what have you..." next
+		"@I really cherish them. I'm so glad you could have been her friend.."next
+		"@Especially with how reckless and stubborn she was," next
+		"@Lain had trouble making friends...But then she met you." next
+		"@So, thank you. For helping my daughter." next
+		"@I'm sure your mom would feel the same way, because I remember how timid you were." next
+		"@..." next
+		"@Anyways, thanks for talking to me today, {name(1)}. It was so nice seeing you again, all grown up!" next
+		"@I'll let you go now and get back to my day..." next
+		"@Have a great rest of your day."
+		end
+		
+	Nevermind:
+		"@..Is something the matter?" next
+		"@{name(1)}, You looked like you were about to say something for a second" next
+		"@...Are you sure?" next
+		"@Well...Just know that I'm here if you want to talk..." next
+		"@Don't worry about it though, whatever it was..." next 
+		"@Just know that I know you'll be okay. You're a strong person." end
+		

@@ -1,0 +1,6 @@
+message:
+	"@Yo, {name(1)}! Have you seen this crazy hole that showed up in the wall!?" next
+	"@It wasn't there just two days ago...Did someone dig into the wall?" next
+	"@You wanna go inside and check it out?" next 
+	"@Me? Nah, not when there's a giant <DON'T ENTER> sign right next to it!" next 
+	"@If you end up heading in, let me know what was inside, okay?" end 

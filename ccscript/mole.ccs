@@ -1,0 +1,15 @@
+message:
+	"@...What?" next
+	"@I'm just a mole, man." next 
+	"@Y'know, ya humans are reeeal funny." next 
+	music_stop
+	"@Y'all live some what, 80 years?" next 
+	"@And what do ya spend all that time doin'?" next 
+	"@Ya got some 20 odd years spent growin' up.." next 
+	"@But then what? The last 60?" next 
+	"@Unless ya got lucky at birth, ya just struggle." next
+	"@Tryna make ends meet, you're a slave to money then you die." next 
+	"@And despite that, ya still push forward." next
+	"@I respect it, honestly." 
+	music_resume 
+	end 

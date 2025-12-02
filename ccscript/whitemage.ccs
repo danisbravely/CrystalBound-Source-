@@ -1,0 +1,21 @@
+message:
+	"@Hi! I'm {name(4)}!" next
+	 "Will you add me to your party?" next
+	menu{
+	
+	"Yes": {goto(sayYes)}
+	default "No": {goto(sayNo)}
+}
+sayYes:
+  "@Let's do it!" next
+  music(0x7B)
+  pause(180)
+ "@{name(4)} has joined your party!" 
+  music_resume	
+  party_add(4)
+  hide_sprite(153, VANISH_HORZ)
+  set(flags.poo_in_party)  
+   end
+
+sayNo:
+  "@Aw ok!" end

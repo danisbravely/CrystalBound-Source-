@@ -1,0 +1,3 @@
+initialize://run at game start.
+	setup_background(241)
+	eob 

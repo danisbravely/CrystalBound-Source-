@@ -1,0 +1,3 @@
+ROM[0xC1FE38] = byte [0] "S"
+ROM[0xC1FE3D] = byte [0] "M"
+ROM[0xC1FE42] = byte [0]  "N"

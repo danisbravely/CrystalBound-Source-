@@ -1,0 +1,694 @@
+import asm65816
+
+// Warp Styles DX
+// Expanded warp styles table and support for colourful fades
+// SupremeKirb
+
+/*
+== Adding new warp styles ==
+Add a warp style by adding a new WarpStyle to the end of
+ExpandedWarpStyles below.
+The format is:
+    duration: duration in frames (255 max)
+    swirl: swirl to play during the transition
+    swirl flags: flags for the swirl
+    fade: fade multiplier. =< 50 for a fade to black, > 50 for a fade to white
+    direction: direction to slide the screen in
+    colour: entry in the fade colour table (we'll come to this)
+    slide speed: angle/speed to slide the screen at (such as in moonside)
+    start sfx: sound effect to play at the start of the warp
+    second duration: duration when fading back in
+    second swirl: swirl to play when fading back in
+    second swirl flags: flags for the swirl when fading back in
+    second sfx: sound effect to play when fading back in
+
+Please note: slide speed has been made less precise as a result of
+the colour field. Now, only the high byte is used. This only affects
+two vanilla warps, which have been rounded up from 0x07E8 to 0x0800.
+*/
+
+/*
+== About coloured fades ==
+In the colour field, you can put an index into the FadeColourTable.
+If the colour field is zero, it will use the fade multiplier to
+perform a black or white fade as is the vanilla behaviour.
+
+Otherwise, it will fade to and from the colour in that index in
+the FadeColourTable. The colour format is the SNES's BGR555 format.
+
+To convert from hex/HTML to BGR555:
+Take the five most significant bits of each colour
+Place them in the order B-G-R with a leading zero bit
+For example: #AABBCC 
+R: AA --> 10101|010 (look at five most significant)
+G: BB --> 10111|011
+B: CC --> 11001|100
+Becomes...
+Z BLUE  GREEN RED
+0|11001|10111|10101
+= 0x66F5
+
+Or use this Python to convert:
+```
+def BGR555(input: int):
+    r = ((input & 0xFF0000) >> 16) >> 3
+    g = ((input & 0x00FF00) >> 8) >> 3
+    b = (input & 0x0000FF) >> 3
+    return hex((b << 10) | (g << 5) | r)
+```
+
+*/
+
+FadeColourTable: {
+    // 0 (dummy index)
+    FadeColour(0x0000)
+    // 1
+    FadeColour(0x5D70) // magic butterfly lavender
+    // 2
+    // add your own!
+}
+
+ExpandedWarpStyles: {
+    // 0 (dummy)
+    WarpStyle(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+    // 1 
+    WarpStyle(
+        0x14, // duration
+        0x00, 0x00, // swirl, swirl flags
+        0x00, 0x00, // fade, direction
+        0, // colour
+        0x00, 0, // slide speed, start sfx
+        0x14, // second duration
+        0x00, 0x00, // second swirl and flags
+        0 // second sfx
+    )
+    // 2
+    WarpStyle(
+        0x14, // duration
+        0x00, 0x00, // swirl, swirl flags
+        0x64, 0x00, // fade, direction
+        0, // colour
+        0x00, 0, // slide speed, start sfx
+        0x3C, // second duration
+        0x00, 0x00, // second swirl and flags
+        0 // second sfx
+    )
+    // 3
+    WarpStyle(
+        0x14, // duration
+        0x00, 0x00, // swirl, swirl flags
+        0x00, 0x00, // fade, direction
+        0, // colour
+        0x00, 0, // slide speed, start sfx
+        0x14, // second duration
+        0x00, 0x00, // second swirl and flags
+        0 // second sfx
+    )
+    // 4
+    WarpStyle(
+        0x14, // duration
+        0x00, 0x00, // swirl, swirl flags
+        0x00, 0x00, // fade, direction
+        0, // colour
+        0x00, 0, // slide speed, start sfx
+        0x14, // second duration
+        0x00, 0x00, // second swirl and flags
+        9 // second sfx
+    )
+    // 5
+    WarpStyle(
+        0x1E, // duration
+        0x00, 0x00, // swirl, swirl flags
+        0x00, 0x00, // fade, direction
+        0, // colour
+        0x10, 17, // slide speed, start sfx
+        0x14, // second duration
+        0x00, 0x00, // second swirl and flags
+        46 // second sfx
+    )
+    // 6
+    WarpStyle(
+        0x14, // duration
+        0x00, 0x00, // swirl, swirl flags
+        0x00, 0x00, // fade, direction
+        0, // colour
+        0x00, 0, // slide speed, start sfx
+        0x14, // second duration
+        0x00, 0x00, // second swirl and flags
+        112 // second sfx
+    )
+    // 7
+    WarpStyle(
+        0x14, // duration
+        0x00, 0x00, // swirl, swirl flags
+        0x00, 0x00, // fade, direction
+        0, // colour
+        0x00, 8, // slide speed, start sfx
+        0x14, // second duration
+        0x00, 0x00, // second swirl and flags
+        9 // second sfx
+    )
+    // 8
+    WarpStyle(
+        0x14, // duration
+        0x00, 0x00, // swirl, swirl flags
+        0x00, 0x00, // fade, direction
+        0, // colour
+        0x00, 8, // slide speed, start sfx
+        0x3C, // second duration
+        0x00, 0x00, // second swirl and flags
+        9 // second sfx
+    )
+    // 9
+    WarpStyle(
+        0x14, // duration
+        0x00, 0x00, // swirl, swirl flags
+        0x00, 0x00, // fade, direction
+        0, // colour
+        0x00, 8, // slide speed, start sfx
+        0x3C, // second duration
+        0x00, 0x00, // second swirl and flags
+        9 // second sfx
+    )
+    // 10
+    WarpStyle(
+        0x14, // duration
+        0x00, 0x00, // swirl, swirl flags
+        0x00, 0x00, // fade, direction
+        0, // colour
+        0x00, 8, // slide speed, start sfx
+        0x14, // second duration
+        0x00, 0x00, // second swirl and flags
+        0 // second sfx
+    )
+    // 11
+    WarpStyle(
+        0x64, // duration
+        0x05, 0x00, // swirl, swirl flags
+        0x31, 0x00, // fade, direction
+        0, // colour
+        0x00, 0, // slide speed, start sfx
+        0x64, // second duration
+        0x05, 0x00, // second swirl and flags
+        0 // second sfx
+    )
+    // 12
+    WarpStyle(
+        0x14, // duration
+        0x00, 0x00, // swirl, swirl flags
+        0x00, 0x00, // fade, direction
+        0, // colour
+        0x00, 112, // slide speed, start sfx
+        0x14, // second duration
+        0x00, 0x00, // second swirl and flags
+        0 // second sfx
+    )
+    // 13
+    WarpStyle(
+        0x14, // duration
+        0x00, 0x00, // swirl, swirl flags
+        0x00, 0x00, // fade, direction
+        0, // colour
+        0x00, 112, // slide speed, start sfx
+        0x14, // second duration
+        0x00, 0x00, // second swirl and flags
+        112 // second sfx
+    )
+    // 14
+    WarpStyle(
+        0x14, // duration
+        0x00, 0x00, // swirl, swirl flags
+        0x64, 0x00, // fade, direction
+        0, // colour
+        0x00, 0, // slide speed, start sfx
+        0x14, // second duration
+        0x00, 0x00, // second swirl and flags
+        0 // second sfx
+    )
+    // 15
+    WarpStyle(
+        0x14, // duration
+        0x00, 0x00, // swirl, swirl flags
+        0x00, 0x00, // fade, direction
+        0, // colour
+        0x00, 18, // slide speed, start sfx
+        0x14, // second duration
+        0x00, 0x00, // second swirl and flags
+        0 // second sfx
+    )
+    // 16
+    WarpStyle(
+        0xFF, // duration
+        0x02, 0x80, // swirl, swirl flags
+        0x64, 0x00, // fade, direction
+        0, // colour
+        0x00, 0, // slide speed, start sfx
+        0x3C, // second duration
+        0x02, 0x01, // second swirl and flags
+        0 // second sfx
+    )
+    // 17
+    WarpStyle(
+        0x3C, // duration
+        0x00, 0x00, // swirl, swirl flags
+        0x00, 0x26, // fade, direction
+        0, // colour
+        0x0C, 12, // slide speed, start sfx
+        0x14, // second duration
+        0x00, 0x00, // second swirl and flags
+        0 // second sfx
+    )
+    // 18
+    WarpStyle(
+        0x3C, // duration
+        0x00, 0x00, // swirl, swirl flags
+        0x00, 0x07, // fade, direction
+        0, // colour
+        0x0C, 12, // slide speed, start sfx
+        0x14, // second duration
+        0x00, 0x00, // second swirl and flags
+        0 // second sfx
+    )
+    // 19
+    WarpStyle(
+        0x3C, // duration
+        0x00, 0x00, // swirl, swirl flags
+        0x00, 0x3B, // fade, direction
+        0, // colour
+        0x0C, 12, // slide speed, start sfx
+        0x14, // second duration
+        0x00, 0x00, // second swirl and flags
+        0 // second sfx
+    )
+    // 20
+    WarpStyle(
+        0x3C, // duration
+        0x00, 0x00, // swirl, swirl flags
+        0x00, 0x3D, // fade, direction
+        0, // colour
+        0x0C, 12, // slide speed, start sfx
+        0x14, // second duration
+        0x00, 0x00, // second swirl and flags
+        0 // second sfx
+    )
+    // 21
+    WarpStyle(
+        0x3C, // duration
+        0x00, 0x00, // swirl, swirl flags
+        0x00, 0x3D, // fade, direction
+        0, // colour
+        0x0C, 12, // slide speed, start sfx
+        0x14, // second duration
+        0x00, 0x00, // second swirl and flags
+        0 // second sfx
+    )
+    // 22
+    WarpStyle(
+        0x3C, // duration
+        0x00, 0x00, // swirl, swirl flags
+        0x00, 0x07, // fade, direction
+        0, // colour
+        0x0C, 12, // slide speed, start sfx
+        0x14, // second duration
+        0x00, 0x00, // second swirl and flags
+        0 // second sfx
+    )
+    // 23
+    WarpStyle(
+        0x3C, // duration
+        0x00, 0x00, // swirl, swirl flags
+        0x00, 0x05, // fade, direction
+        0, // colour
+        0x0C, 12, // slide speed, start sfx
+        0x14, // second duration
+        0x00, 0x00, // second swirl and flags
+        0 // second sfx
+    )
+    // 24
+    WarpStyle(
+        0x3C, // duration
+        0x00, 0x00, // swirl, swirl flags
+        0x00, 0x30, // fade, direction
+        0, // colour
+        0x0C, 12, // slide speed, start sfx
+        0x14, // second duration
+        0x00, 0x00, // second swirl and flags
+        0 // second sfx
+    )
+    // 25
+    WarpStyle(
+        0x3C, // duration
+        0x00, 0x00, // swirl, swirl flags
+        0x00, 0x16, // fade, direction
+        0, // colour
+        0x0C, 12, // slide speed, start sfx
+        0x14, // second duration
+        0x00, 0x00, // second swirl and flags
+        0 // second sfx
+    )
+    // 26
+    WarpStyle(
+        0x3C, // duration
+        0x00, 0x00, // swirl, swirl flags
+        0x00, 0x26, // fade, direction
+        0, // colour
+        0x0C, 12, // slide speed, start sfx
+        0x14, // second duration
+        0x00, 0x00, // second swirl and flags
+        0 // second sfx
+    )
+    // 27
+    WarpStyle(
+        0x3C, // duration
+        0x00, 0x00, // swirl, swirl flags
+        0x00, 0x1B, // fade, direction
+        0, // colour
+        0x0C, 12, // slide speed, start sfx
+        0x14, // second duration
+        0x00, 0x00, // second swirl and flags
+        0 // second sfx
+    )
+    // 28
+    WarpStyle(
+        0x14, // duration
+        0x00, 0x00, // swirl, swirl flags
+        0x00, 0x00, // fade, direction
+        0, // colour
+        0x00, 12, // slide speed, start sfx
+        0x14, // second duration
+        0x00, 0x00, // second swirl and flags
+        0 // second sfx
+    )
+    // 29
+    WarpStyle(
+        0x78, // duration
+        0x00, 0x00, // swirl, swirl flags
+        0x64, 0x00, // fade, direction
+        0, // colour
+        0x00, 0, // slide speed, start sfx
+        0x64, // second duration
+        0x00, 0x00, // second swirl and flags
+        0 // second sfx
+    )
+    // 30
+    WarpStyle(
+        0x64, // duration
+        0x00, 0x00, // swirl, swirl flags
+        0x64, 0x00, // fade, direction
+        0, // colour
+        0x00, 100, // slide speed, start sfx
+        0x3C, // second duration
+        0x00, 0x00, // second swirl and flags
+        0 // second sfx
+    )
+    // 31
+    WarpStyle(
+        0x64, // duration
+        0x00, 0x00, // swirl, swirl flags
+        0x00, 0x10, // fade, direction
+        0, // colour
+        0x08, 96, // slide speed, start sfx
+        0x14, // second duration
+        0x00, 0x00, // second swirl and flags
+        83 // second sfx
+    )
+    // 32
+    WarpStyle(
+        0x64, // duration
+        0x00, 0x00, // swirl, swirl flags
+        0x00, 0x30, // fade, direction
+        0, // colour
+        0x08, 96, // slide speed, start sfx
+        0x14, // second duration
+        0x00, 0x00, // second swirl and flags
+        83 // second sfx
+    )
+    // 33
+    WarpStyle(
+        0x1E, // duration
+        0x00, 0x00, // swirl, swirl flags
+        0x00, 0x00, // fade, direction
+        0, // colour
+        0x10, 17, // slide speed, start sfx
+        0x14, // second duration
+        0x00, 0x00, // second swirl and flags
+        0 // second sfx
+    )
+    // 34 (Custom example!)
+    WarpStyle(
+        0x14, // duration
+        0x00, 0x00, // swirl, swirl flags
+        0x00, 0x00, // fade, direction
+        1, // colour (magic butterfly lavender)
+        0x00, 0, // slide speed, start sfx
+        0x14, // second duration
+        0x00, 0x00, // second swirl and flags
+        0 // second sfx
+    )
+}
+
+
+
+
+
+
+
+
+//// MAGIC ZONE !! ////
+
+// A quick technical overview of what happens here:
+/*
+The table relocation is pretty standard stuff. No big deal there.
+
+There are two major changes that colourful fades make:
+    1. the slide speed is now only one byte instead of two.
+       vanilla barely uses the low byte, so this change 
+       does not make a noticable impact.
+       The freed-up byte becomes our index into the colour table.
+    
+    2. WIPE_PALETTES_ON_MAP_LOAD ($7E4676) is no longer treated
+       as a boolean. Instead, it contains the colour to wipe the
+       palettes with. Previously, it would fill the palettes with
+       white. It's only set in two places and read from in one.
+
+The code for colourful fades is loosely based on the magic butterfly
+effect, which implements its own fading loop. In fact, most fading stuff
+across this game features a lot of very similar code: fill the current
+palettes with the start colours, and put your end palettes in the buffer.
+Then call the function that prepares the linear interpolation values,
+then loop while stepping the fade and waiting frames.
+
+A sister script to this one is also on the library that provides
+some standardised functions to do this sort of thing, along with
+a control code example implementation. It's called "fade tools".
+
+*/
+
+// Table relocation
+// in $C06662 ScreenTransition
+ROM[0xC06671] = ASMLoadAddress06 (ExpandedWarpStyles)
+// in $C068AF GetScreenTransitionSoundEffect
+ROM[0xC068BB] = ASMLoadAddress06 (ExpandedWarpStyles)
+
+// Macros
+command WarpStyle(duration, swirl, swirl_flags,
+                  fade, direction, colour, slide_speed,
+                  sfx, second_duration, second_swirl,
+                  second_swirl_flags, second_sfx)
+{
+    byte duration byte swirl byte swirl_flags
+    byte fade byte direction byte colour byte slide_speed
+    byte sfx byte second_duration byte second_swirl
+    byte second_swirl_flags byte second_sfx
+}
+command FadeColour(colour) { short colour }
+
+// Patches
+define FinishPaletteFade = 0xC49740
+define BackgroundSlideInit = 0xC42631
+define BUFFER = 0x7F0000
+define PALETTES = 0x7E0200
+define WIPE_PALETTES_ON_MAP_LOAD = 0x4676
+
+// patches to support colourful fades during screen transitions
+ROM[0xC0673D] = { JML (ColourfulFadeOutPatch) }
+ROM[0xC06786] = { JML (ColourfulPostFadeOutPatch) NOP }
+ROM[0xC067E9] = { JML (ColourfulFadeInPatch) NOP NOP NOP NOP }
+// patches for the new functionality of WIPE_PALETTES_ON_MAP_LOAD
+ROM[0xC067C5] = { JML (ColourfulWipePalettesScreenTransitionPatch) NOP NOP }
+ROM[0xC00A60] = { JML (ColourfulWipePalettesLoadMapPatch) }
+// the only other place that WIPE_PALETTES_ON_MAP_LOAD is set.
+// set it to white becuase that's what this being nonzero used to do
+ROM[0xC4C772] = { LDA_i (0x7FFF) }
+// patching slide speed to only use the high byte
+ROM[0xC066BC] = { JML (ColourfulSlideSpeedPatch) }
+
+ColourfulFadeOutPatch: {
+    PHA
+    LDY_i (5) // where slide speed used to start
+    LDA_dly (6)
+    AND_i (0x00FF) // low byte is colour index
+    BNE_a (_hasColour)
+    // no colour, exit
+    PLA
+    JSL (0xC4954C)
+    BRA_a (_return)
+
+_hasColour:
+    // Fill the buffer with the colour (target palettes)
+    // But all in registers+stack because idc to figure out locals
+
+    // A = colour index
+    ASL // *2 because it's a short
+    TAX
+    LDA_xl (FadeColourTable)
+    // A = colour
+
+    LDX_i (0)
+    // X = loop
+    BRA_a (_checkBufferFillLoop)
+_bufferFillLoop:
+        // A = colour, X = loop
+        TAY // colour --> Y
+        TXA // loop --> A
+        ASL // create index
+        PHX // loop --> stack
+        PHA // index --> stack
+        TYA // A = colour
+        PLX // X = index
+        STA_xl (0x7F0000) // store in buffer
+        PLX // X = loop
+        INX // loop++
+_checkBufferFillLoop:
+        CPX_i  (0x0100)
+        BCC_a  (_bufferFillLoop)
+    
+    PLA // restore stack
+    
+_return:
+    JML (0xC06741) // return to original code
+}
+
+
+ColourfulPostFadeOutPatch: {
+    LDY_i (5) // where slide speed used to start
+    LDA_dly (6)
+    AND_i (0x00FF) // low byte is colour index
+    CMP_i (0)
+    BNE_a (_hasColour)
+    // no colour, exit
+    // vanilla code that we patched over
+    SEP (0x20)
+    LDY_i (3)
+    // return
+    JML (0xC0678B)
+
+_hasColour:
+    // can't help but wonder why they didn't just use this 
+    JSL (FinishPaletteFade)
+    // return
+    JML (0xC067C1)
+}
+
+
+ColourfulFadeInPatch: {
+    // previously the functionality here
+    // was {if (fadeMultiplier <= 50) do fadeIn else do generic fade stuff}
+    // now the condition needs to be (fadeMultiplier <= 50 & colour == 0)
+
+    // we'd just subtracted the fade multiplier from 50,
+    // so this is the branch check
+    // it's (overflow XNOR negative)
+    // (a BRANCHLTEQS in ebsrc)
+    BVC_a (_bmi)
+    BPL_a (_false)
+    BRA_a (_true)
+    _bmi:
+    BMI_a (_false)
+
+    _true: // fade mult is <= 50
+    // check that colour is also zero
+    LDY_i (5) // where slide speed used to start
+    LDA_dly (6)
+    AND_i (0x00FF) // low byte is colour index
+    CMP_i (0)
+    BNE_a (_false)
+    // good! return to original code with truth
+    LDX_i (1)
+    JML (0xC067F4)
+
+    _false: // fade mult is > 50 and colour != 0
+    // return to original code with evil lies
+    LDX_i (0)
+    JML (0xC067F4)
+}
+
+
+ColourfulWipePalettesScreenTransitionPatch: {
+    LDY_i (5) // where slide speed used to start
+    LDA_dly (6)
+    AND_i (0x00FF) // low byte is colour index
+    CMP_i (0)
+    BNE_a (_hasColour)
+    // no colour, but don't return just yet!
+    BRA_a (_noColour)
+
+_hasColour:
+    // A = colour index
+    ASL // *2 because it's a short
+    TAX
+    LDA_xl (FadeColourTable)
+    // A = colour
+    STA_a (WIPE_PALETTES_ON_MAP_LOAD)
+    BRA_a (_return)
+
+_noColour:
+    // if we got to this point at all,
+    // it means that the fade mult is > 50
+    // so if no colour was specified we still
+    // need to store white to WIPE_PALETTES_ON_MAP_LOAD
+    LDA_i (0x7FFF)
+    STA_a (WIPE_PALETTES_ON_MAP_LOAD)
+
+_return:
+    JML (0xC067CB)  
+}
+
+
+ColourfulWipePalettesLoadMapPatch: {
+    // instead of filling the palettes with white,
+    // fill them with the colour value.
+    LDA_a (WIPE_PALETTES_ON_MAP_LOAD)
+    LDX_i (0)
+    // X = loop
+    BRA_a (_checkPaletteFillLoop)
+_paletteFillLoop:
+        // A = colour, X = loop
+        TAY // colour --> Y
+        TXA // loop --> A
+        ASL // create index
+        PHX // loop --> stack
+        PHA // index --> stack
+        TYA // A = colour
+        PLX // X = index
+        STA_x (PALETTES) // store in palettes
+        PLX // X = loop
+        INX // loop++
+_checkPaletteFillLoop:
+        CPX_i  (0x0100)
+        BCC_a  (_paletteFillLoop)
+
+    JML (0xC00A72) // return
+}
+
+ColourfulSlideSpeedPatch: {
+    // we have the low byte (now colour) and high byte loaded
+    // so just clear the low byte
+    AND_i (0xFF00)
+
+    // function we overwrote
+    JSL (BackgroundSlideInit)
+
+    // back to the original code
+    JML (0xC066C0)
+}

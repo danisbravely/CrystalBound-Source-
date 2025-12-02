@@ -1,0 +1,16 @@
+message:
+	"@Oh?" next
+	"@Look who showed up!" next
+	"@{name(1)}, I'm surprised you actually came!" next
+	"@It's also good that you're taking in the Maiden's presence for once;" next
+	"@You youngin's ain't have enough Holy in your life, man!" next 
+	"@I'm just worried about the religion dyin' out or somethin..." next
+	"@I mean, we can't just abandon the Maiden!" next
+	"@She never abandoned us, did she? So we can't let her be forgotten!" next 
+	"@Ah, whatever. Sorry, didn't mean to bore you with an old man's thoughts, heh!" next
+	"@Good talkin' to ya, kid..." next
+	"@I'm gonna...get back to...prayin'..." next
+	"@And uh..stuff..." next
+	"@..*zZZzzZz*..." next
+	"(He falls asleep...)" 
+	end 

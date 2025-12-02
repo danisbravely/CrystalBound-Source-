@@ -1,0 +1,119 @@
+Maskedguy:
+if (flags.detectiveconvo)
+{
+	"@Oh, man." next 
+	"@Getting harrassed and profiled by the feds even though you're just a kid?" next 
+	"@I'm real sorry, lad. These arseholes really gotta go..." next 
+	"@Don't tell anyone I said that. Would rather them not come after me next." next 
+	"@You know how they are. They'll take anyone who even criticizes them slightly." next 
+	"@Just listen to what they say for now." next 
+	"@Nothing in particular you can do about it yet, I'm afraid." end 
+}
+else
+	"@..Top o' the mornin' lad." next
+	"@What it be to ya?" next 
+	"(You notice that this man clearly speaks in an Irish accent.)" next
+	"@Me? Yeah, I came from up north." next 
+	"@Ever since the Empire rose to power, I've been investigating ways to stop 'em." next 
+	"@It's the reason I got in this mask." next 
+	"@Gotta be careful out here. Bleedin' imperials ain't past nothing to get their way at this point." next
+	"@So, just try not to get involved with them or anything, yeah?" next 
+	"@You won't start acting the maggot around them either, alright?" next 
+	"@Good. Thanks a million." end 
+	
+Detective1:
+if (flags.detective_is_walking) 
+{
+	"@Kid, you'd better shut the $@%#S up and just follow me." next
+	"You're really testing my patience and I don't got a lot of it right now." next
+	"Just shut it and try not to fall behind." end
+}
+else
+	"@Alright, here it is." next
+	"@We found some hollow space behind this wall recently." next 
+	"@Then, we just dug some until we broke through enough to find out there's a whole tunnel system in there..." next 
+	"@Damn bastards seriosuly think they're smarter than us, don't they?" next 
+	"@...What's that look for? Got something to say?" next 
+	"@No? That's what I thought." next 
+	"@Now get in there and prove your loyalty before I change my mind." end 
+	
+Officer1:
+	"@You heard the detective, kid." next 
+	"@Get moving. Now." next 
+	"@Before I punch you..."next 
+	"@...Cause I really feel like punching something right now, for some reason." next 
+	"@Especially something young, harmless, and innocent." end 
+	
+Officer2:
+	"@...heh..." next 
+	"(He smiles...oddly at you.)" next
+	"(You also hear the officer giggle softly to himself while staring at you.)" next 
+	"(...It makes you feel very uncomfortable...)" end
+	
+Officer3:
+	"@A: Man, seriously? Just a random kiddo?" next 
+	"@A: When are we gonna go fight some REAL protesters?" next 
+	"@B: Yeah, I wanna go slice up some Illegals or some of those damn mages..." next 
+	"@B: Them and their magic spells man, they're so annoying I just want to..." next
+	"@B: Ugh, don't even get me started..." next 
+	"@A: What, you mean those hat 'n robe wearing weirdos from overseas?" next 
+	"@A: I get it, they especially pose a big threat to the Emperor and his reigeme..." next 
+	"@A: And not just because they got powerful spells. They have a ton of political support from other opposing ideals too..." next 
+	"@A: I wouldn't worry about it though. We're in power as is and it's staying that way." next 
+	"@B: Yeah, you're right. Guess we just gotta be patient then." next 
+	"@B: It'll all pay out soon enough...the Emperor will save us. Already is." 
+	end
+	
+Officer4:
+	"@Sorry kid, we're closing down the roads here till the 'lil Illegals problem is dealt with." next 
+	"@Can't let 'em have any route of escape. You know the drill." next 
+	"@Detective's gone in the other direction, in case you didn't see. Just follow past the slope and make a right." end 
+
+Officer5:
+	"@Yeah, what the other guy said. Do what he said." end 
+
+Officer6:
+	"@..." next 
+	"@...." next 
+	"@*snore*" next 
+	"(The officer seems to have fallen asleep....standing.)" end
+
+Goro1:
+ if (flags.GoroConvo_1)
+{
+	"@Hm..." next 
+	"@Is there a resteraunt..?" next 
+	"@Tonkatsu Pork...nah.." next 
+	"@Maybe the Soup Curry store next door?" next 
+	"@There's a burger place around here too..." next 
+	"@Ah..My stomach is killing me!" next 
+	"@I'll keep looking until I find the one!" end 
+}
+else
+{
+	"@Ah..." next 
+	"@I have finally arrived to Fallsville!" next 
+	"@Now, where was the..." next
+	pause(50) 
+	"@!" next 
+	"@Sorry! I didn't see you there!" next 
+	"@Are you a resident of this town, kid?" next 
+	"@{name(1)}, huh?" next 
+	"@That's a nice name." next 
+	"@I'm Goro! Nice to meet you." next 
+	"@I'm a traveling salesman in search of opportunities to grow my business." next 
+	"@Right now, I'm looking for Cid. You gotta know where he's at right?" next 
+	"@Yeah, the CEO of Mogcorp." next 
+	"@I have a meeting about him about some asset deal, you know how it is" next 
+	"@Fortunately, there's no specific meeting time so I can see him whenever." next 
+	"@Still though, he sounds pretty intimidating and I'm real nervous to approach him." next 
+	"@Oh man, I've really been stressing about it!" next 
+	"@And now that I think about it-" next 
+	"@.|.|." next 
+	"@I'm hungry!" next
+	"@Alright. I'll look for a place to eat." next 
+	"@Gotta run kid, can't do good work on an empty stomach!" next 
+	"@Thanks for talking with me though, see you later." 
+	set(flags.GoroConvo_1)
+	end 
+}

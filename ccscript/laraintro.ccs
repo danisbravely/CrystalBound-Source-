@@ -1,0 +1,72 @@
+import variable_movement_WIP
+import stdext_only_new_commands
+
+//NPC speech
+initialspeech:
+	if flags.laraquest {
+		"@I'll see you in an hour or two, okay?" next 
+		"@Stay safe in the meantime...The wild animals can be quite dangerous, you know."
+		end
+	
+    }
+	else {
+		"@Oh hello there, {name(1)}!" next
+		"@I have not seen you or your family here at mass for quite some time..." next 
+		"@Don't worry, I'm not concerned or mad about you not attending weekly anymore."  next
+		"@Or at all for the matter..." next
+		"@But the fact you came back worries me a little." next
+		"@You stopped attending mass with your family years ago," next
+		"@So what brings you back here? Did you need something from me?" next
+		menu{
+		
+			"Yes" : goto(sayYes)
+			default "No" : goto(sayNo)
+			
+		}
+		
+		sayYes:
+			music_stop
+			"@I see....you seek today's reconciliation service?" next
+			"@Well, i'm glad you decided to come after all." next
+			"@It's good to see and hear from you again, {name(1)}." next 
+			"@I need to finish sermon here, so let's meet in a few hours, okay?" next
+			sound(16)
+			"@Sound good? Good. I'll see you in a bit."
+			music_resume
+			set (flags.laraquest)
+			hotspot_on(1, 15, Encounter)
+			end
+			
+		sayNo:
+			"@Um...are you sure...?" next
+			"@Your face tells me a different story." next 
+			"@Enjoy the rest of sermon," next
+			"@and if you need anyone to talk to, please remember that I'm here to listen."
+			end
+			}
+			
+//Hotspot
+Encounter:
+	sprite_direction(165, WEST)
+	window_open(1)
+	char_direction(1,EAST)
+	"@Hello sir. You are {name(1)} otherwise known as [52]PheonixDown05[52] on the Internet, yes?" next 
+	"@Yeah, we know you are. Don't bother answering." next 
+	"@You are currently under investigation for reports of Anti-Empire sentiment and postings on your profile." next 
+	"@To make it even worse, you've also been charged with spreading Anti-Empire sentiment around the sites and forums too." next 
+	"@Normally, I'd arrest you on the spot and send you straight to the slammer. But I can see you're just a kid, so here's what we're gonna do." next 
+	"@I'm gonna give you one chance to save yourself." next 
+	"@You're gonna help us take out some illegal travelers who've been living here in this town undocumented for years." next 
+	"@We've already caught a possible hiding location." next 
+	"@It's just around the corner. Come on." wait
+	char_direction(1,SOUTH)
+	window_closeall
+	hotspot_off(1)
+	npc_do_mc(165, 896)
+	sprite_direction(165, SOUTH)
+	unset (flags.laraquest)
+	set (flags.detectiveconvo)
+	set (flags.detective_is_walking)
+	eob
+	
+	

@@ -1,0 +1,68 @@
+initial:
+	if (flags.initial_save_moogle_convo)
+	{
+		"@Hi there, {name(1)}! How is your day going?" next 
+		"@..You just woke up?" next 
+		"@O-Oh..." next 
+		"@...Well, did you sleep well, at least?" next
+		"@You did? That's good!" next 
+		"@Anyways, before you go out for the day and I forget," next 
+		"@I should let you know, your mom left early again." next 
+		"@You know how it is, she left you some money for food and stuff." next 
+		"@Here." next 
+		givemoney(20)
+		"(You receive $20 from the Moogle.)" next 
+		"@By the way, do you need something from me?" next
+		unset (flags.initial_save_moogle_convo)
+		menu{
+		
+			"Save" : goto(savegame)
+			default "Nothing" : goto(nothing)
+		}
+	}
+	else
+	"@Hey, {name(1)}!" next 
+	"@How are you doing?" next 
+	"@Do you need anything from me?" next
+	menu{
+		
+		"Save" : goto(savegame)
+		default "Nothing" : goto(nothing)
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	savegame:
+		sprite_direction(21, NORTH)
+		pause(7)
+		sprite_direction(21, EAST)
+		pause(7)
+		sprite_direction(21, WEST)
+		"@Okay, I'll save your progress for you..." next
+		save 
+		sprite_direction(21, EAST)
+		pause(7)
+		sprite_direction(21, NORTH)
+		pause(7)
+		sprite_direction(21, SOUTH)
+		"@Done!" next 
+		"@Don't forget to talk to us Save Moogles whenever you can, okay?" next
+		"@See you later!" end 
+		
+	nothing: 
+		"@Oh, okay then." next
+		"@Talk to me or any Save Moogle again whenever you need to save your progress, okay?" next 
+		"@See you later!" end 
+		
+		
+		
+	

@@ -1,0 +1,26 @@
+message:
+	"@W-what's poppin'...." next
+	"@Eh...I'm too old for this, man..." next
+	"@Hm? How old am I?" next
+	"@Well my boy, I just turned 29!" next
+	"@ I'm Fadel from the GamesCage by the way. " next
+	"@Don't I look good for my ripe old age?" next
+	menu {
+
+		"Yes" :  {goto(sayYes)}
+		default  "No" : {goto(sayNo)}
+
+	}
+	sayYes:
+		"@Screw you, man." next
+		battle(29)
+		window_open(1)
+			"@Ugh... {pause(15)}....you youngins'n your switch too's...."  next
+			"@*falls backwards and 'dies'"
+			set(flags.BossFinished)			
+			hide_sprite(8, VANISH_HORZ)
+			hide_sprite(190, VANISH_HORZ)
+			hide_sprite(189, VANISH_HORZ)
+			end
+	sayNo:
+		"@Eh? What was that? Couldn't hear you sonny, I'm sorry." end

@@ -1,0 +1,114 @@
+import asm65816
+
+////////////////////////////////////////////////////////////////////////////////
+
+// This script lets you have 3 different backgrounds for the new game setup part, with a fade out and fade in.
+// One for the file select menu, one for the new game setup, and one for the naming screen.
+
+// Customization part here.
+
+define change_new_game_bg = 1	// Set to 1 to enable the new_game_bg change. Set to 0 to disable it.
+define change_naming_bg = 1		// Set to 1 to enable the naming_bg change. Set to 0 to disable it.
+
+// This only supports 1 layer backgrounds!
+define file_select_bg = 241
+define new_game_bg = 160
+define naming_bg = 289
+
+define fade_speed = 0			// 0: fastest, 1: slower, 2: even slower, etc.
+
+// Make sure that "file_select_bg" matches with what you're setting with "setup_background()" if you're using that command.
+
+////////////////////////////////////////////////////////////////////////////////
+
+// Do not touch anything below.
+
+command fade_out(speed) {
+	LDX_i(speed)
+	LDA_i(1)
+	JSL(0xC0887A)
+	fade_loop
+}
+
+command fade_in(speed) {
+	LDX_i(speed)
+	LDA_i(1)
+	JSL(0xC0886C)
+	fade_loop
+}
+
+command fade_loop {
+	_loop:
+	LDA_a(0x0028)
+	AND_i(0xFF)
+	BNE_a(_loop)
+}
+
+command set_bg(layer1,layer2,letterbox) {
+	LDA_i(layer1)
+	LDX_i(layer2)
+	LDY_i(letterbox)
+	JSL(0xC2D121)
+	STZ_a(0x0035)		// Set BG2 layer scroll to 0 and update screen.
+	STZ_a(0x0037)
+	JSL(0xC08B26)
+}
+
+////////////////////////////////////////
+
+// Do not touch anything below.
+
+ROM[0xC1F8B9] = JSL(load_new_game_bg)
+ROM[0xC1F8FE] = JSL(load_naming_bg)
+
+load_new_game_bg:
+	JSL(0xC1F3C2)
+	LDA_i(change_new_game_bg)
+	BEQ_a(_ul2024_end1)
+	fade_out(fade_speed)
+	set_bg(new_game_bg,0,0)
+	fade_in(fade_speed)
+	_ul2024_end1:
+	RTL
+
+load_naming_bg:
+	JSL(0xC4FBBD)
+	LDA_i(change_naming_bg)
+	BEQ_a(_ul2024_end2)
+	fade_out(fade_speed)
+	set_bg(naming_bg,0,0)
+	fade_in(fade_speed)
+	_ul2024_end2:
+	RTL
+
+// For when you cancel the menus.
+
+ROM[0xC1F8CC] = JSL(cancel_new_game)
+ROM[0xC1F92F] = JSL(cancel_naming)
+
+cancel_new_game:
+	JSL(0xC3E521)
+	LDA_i(change_new_game_bg)
+	BEQ_a(_ul2024_end3)
+	fade_out(fade_speed)
+	set_bg(file_select_bg,0,0)
+	fade_in(fade_speed)
+	_ul2024_end3:
+	RTL
+
+cancel_naming:
+	JSL(0xC4FBBD)
+	LDA_i(change_naming_bg)
+	BEQ_a(_ul2024_end4)
+	fade_out(fade_speed)
+	LDA_i(change_new_game_bg)
+	BEQ_a(_ul2024_continue1)
+	set_bg(new_game_bg,0,0)
+	_ul2024_continue1:
+	LDA_i(change_new_game_bg)
+	BNE_a(_ul2024_continue2)
+	set_bg(file_select_bg,0,0)
+	_ul2024_continue2:
+	fade_in(fade_speed)
+	_ul2024_end4:
+	RTL

@@ -1,0 +1,16 @@
+WARNING:
+	music_stop 
+	sound(114)
+	text_blips(6)
+	"< WARNING >" next 
+	"< OBJECT CLASS: APOLLYON >" next
+	"< DANGER LEVELS CRITICAL >" next
+	"< HUMAN BIOLOGICAL MATTER PROHIBITED BEYOND THIS PONT >" next
+	"< SPECIAL AUTHORIZATION AND PERSONELL REQUIRED FOR ENTRY >" next 
+	"< IF YOU SEE SOMEONE WITH HUMAN FLESH ENTER >" next 
+	"< LEAVE THEM. NOTHING IS WORTH THE RISK. >" next 
+	"< DON'T THROW YOUR LIFE AWAY.>" next 
+	" - N.P.C. Foundation" 
+	music_resume
+	end
+	

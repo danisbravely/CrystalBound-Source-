@@ -1,0 +1,28 @@
+define disable_enemies =        flag 11    //This is from the vanilla game, use it to turn encounters on and off
+define normal_winters_music =   flag 544    //this is also from the vanilla game
+define detective_visible =           flag 0x15d    //turn on and off the second Detective NPC next to the hole 
+define detective_is_walking =         flag 0x1F    //set during the detective walking actionscript.
+define initial_save_moogle_convo =         flag 0x20    //set before you've heard the first save moogle conversation and unset after
+define jeff_in_party =          flag 0x19 
+define poo_in_party =          flag 0x1A
+define detectiveconvo =          flag 0x1B //set after the Detective makes you walk with him to the hole.
+define laraquest =               flag 0x1C    //set after talking to Lara in the church at the beginning.
+define paula_in_party =    flag 0x1D
+define BossFinished =     flag 0x1E   //Use this to prevent the player from beating the Fadel boss, walk away, walk back, and trigger the fight again
+define GoroConvo_1 = flag 0x21 //Change Goro's dialoge after talking to him once.
+//Put more flags here as needed!
+
+initialize: //run this when the game initializes!
+  unset(flags.detective_visible)
+  unset(flags.detective_is_walking)
+  set(flags.initial_save_moogle_convo)
+  unset(flags.jeff_in_party)
+  unset(flags.poo_in_party)
+  unset(flags.detectiveconvo)
+  unset(flags.BossFinished)
+  unset(flags.paula_in_party)
+  set(flags.normal_winters_music)
+  unset(flags.laraquest)
+  unset (flags.GoroConvo_1)
+  //Put more flags here as needed!
+  eob

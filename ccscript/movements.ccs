@@ -1,0 +1,40 @@
+import movscr_codes
+
+detective_custom_walk: {
+  m_onmove(0xA37A)
+  m_task_long(MovTask_Anim8)
+  
+  m_set_speed(384) // Replace x with speed.
+  m_default_dest_radius
+  
+  // vvv
+ 
+  m_set_dest_pos(2035, 202) // Replace x, y with dest coords.
+  m_walk_to_dest
+  
+  m_set_dest_pos(2035, 406) // Replace x, y with dest coords.
+  m_walk_to_dest
+
+  m_set_dest_pos(1844, 406) // Replace x, y with dest coords.
+  m_walk_to_dest
+  
+  m_set_dest_pos(1844, 349) // Replace x, y with dest coords.
+  m_walk_to_dest
+  
+  m_set_dest_pos(1879, 349) // Replace x, y with dest coords.
+  m_walk_to_dest
+  
+  m_set_dest_pos(1879, 285) // Replace x, y with dest coords.
+  m_walk_to_dest
+  
+  m_set_dest_pos(1856, 275) // Replace x, y with dest coords.
+  m_walk_to_dest
+ 
+  m_unset_flag(flags.detective_is_walking) 
+  m_set_flag(flags.detective_visible) 
+ 
+  // ^^^ repeat as many of these as needed.
+
+  m_endlasttask
+  m_jml(0xC36E2D) // Goto script 606.
+}

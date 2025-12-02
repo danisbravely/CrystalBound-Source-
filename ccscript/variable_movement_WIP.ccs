@@ -1,0 +1,70 @@
+import movscr_codes
+import asm65816
+import ccexpand
+import cc_asmcall
+
+
+/* INSTRUCTIONS
+format:
+npc_walk_to_coords(npc, x, y, speed)			- makes an NPC walk to the specified x and y coordinates at a rate of (speed/256) pixels per frame
+
+also you need to add an entry to the movement_reloc table, and then correct the ID in the define that's 4 lines below!
+*/
+
+//define action script ids in the table
+define id_walk_to_coords = 895 //update this with the right one!
+
+///////////////////////////
+//define CCScript commands:
+///////////////////////////
+command npc_walk_to_coords(variablemov_npc, variablemov_x, variablemov_y, variablemov_speed) {
+	cc_asmcall(asm_walk_to_coords, RET_NONE)
+	short variablemov_npc
+	short variablemov_x
+	short variablemov_y
+	short variablemov_speed
+	"[1F F1 {short variablemov_npc} {short id_walk_to_coords}]"
+	}
+
+/////////////
+//define asm:
+/////////////
+asm_walk_to_coords: {
+	// Read CCScript arguments (8 bytes).
+	LDY_i(8)
+	JSL(R_Read_Parameter_Bytes) // The 8 bytes are stored into D_cc_argv_0 to D_cc_argv_7.
+	
+	LDA_a(D_cc_argv_0)		//loads variablemov_npc into A register
+	JSL(0xC4605A)			//Finds first entity with NPC ID
+	CMP_i(-1)				//check if the returned entitiy is -1 (cause that means the NPC isn't on screen)
+	BEQ_a(_early_exit)		//if it is -1, abort the whole thing so we don't end up writing to the wrong places
+	
+	//hopefully the check was succesful and we can start writing stuff to the entitiy VARs
+	ASL // Multiply the entity ID by 2 to get the offset instead of the slot/ID.
+	TAX // Copy A into X.
+
+	LDA_a(D_cc_argv_2)		// Load variablemov_x
+	STA_x(0x0FC6)			// Store into the object's VAR6
+
+	LDA_a(D_cc_argv_4)		// Load variablemov_y
+	STA_x(0x1002)			// Store into the object's VAR7
+
+	LDA_a(D_cc_argv_6)		// Load variablemov_speed
+	STA_x(0x0ED6)			// Store into the object's VAR2	
+	_early_exit:
+	RTL
+}
+
+/////////////////////////////////////
+//define the acionscripts themselves:
+/////////////////////////////////////
+actscr_walk_to_coords:
+	m_get_var2					//loads VAR2 (which has speed) to RESULT
+	m_asmcall(0xC0A68B)			//Takes RESULT and puts it into wherever movement speed is stored
+	m_onmove(0xA37A)			//"Apply XY velocities + update surface flags"
+	m_task_long(MovTask_Anim8)	//task to animate
+	m_set_dest_radius(1)		//need radius cause it can't actually check exact pixels
+	m_walk_to_dest				//finally starts walking
+	m_endlasttask				//clears the animation (cause calling 606 doesn't restore 24 frame animation on its own cause of "clashing" apparently)
+	m_unlock_text				//this will unlock the script if it was locked by [1F 61]. Be aware of this as you write cutscenes and stuff
+	m_jml(0xC36E2D)				//calls movement 606 (walk in place)
