@@ -17,18 +17,18 @@
 8:
   Name: 'WHM Protect '
 9:
-  Name: 'PSI Shield '
+  Name: 'WHM Shell '
 10:
-  Name: 'Offense up '
+  Name: 'Bravery '
 11:
-  Name: 'Defense down '
+  Name: 'Deprotect '
 12:
-  Name: 'Hypnosis '
+  Name: 'Sleep '
 13:
   Name: 'PSI Magnet '
 14:
-  Name: 'Paralysis '
+  Name: 'Stop '
 15:
-  Name: 'Brainshock '
+  Name: 'Confuse '
 16:
   Name: 'Teleport '

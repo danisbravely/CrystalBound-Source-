@@ -2620,7 +2620,7 @@
   Money: 4
   Movement pattern: 20
   Music: 96
-  Name: Coil Snake
+  Name: Cactuar
   Offense: 3
   Overworld Sprite: 283
   PP: 0
@@ -5722,7 +5722,7 @@
   Money: 3
   Movement pattern: 22
   Music: 101
-  Name: Runaway Dog
+  Name: Fire Bomb 
   Offense: 4
   Overworld Sprite: 330
   PP: 0
@@ -7508,7 +7508,7 @@
   Money: 5
   Movement pattern: 25
   Music: 101
-  Name: Spiteful Crow
+  Name: Ahriman
   Offense: 5
   Overworld Sprite: 282
   PP: 0
