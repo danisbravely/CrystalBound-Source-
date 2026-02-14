@@ -1,4 +1,4 @@
-C:/Users/Owner/Desktop/roms/SNES/CrystalBound.sfc
+C:/Users/danie/OneDrive/Desktop/PK Hack/Current Hack Stuff/CrystalBound.sfc
 CCScript Compilation Summary
 ============================
 
@@ -6,8 +6,8 @@ CCScript Compilation Summary
 Compilation statistics
 =================================================================
 Compilation start:           $f10000
-Compilation end:             $f140cb
-Total compiled size:         16587 bytes
+Compilation end:             $f14520
+Total compiled size:         17696 bytes
 Fragmented space:            0 bytes
 -----------------------------------------------------------------
 
@@ -16,43 +16,43 @@ Module information
 =================================================================
 Name                         Address     Size
 -----------------------------------------------------------------
-asm65816                     $f140cb      0      bytes
-cageband                     $f1407f      44     bytes
-ccexpand                     $f1321a      415    bytes
-cc_asmcall                   $f13e61      128    bytes
-churchnpc1                   $f12c15      579    bytes
-churchnpc2                   $f12e58      517    bytes
-churchnpc3                   $f11685      2169   bytes
-churchsign                   $f13d24      164    bytes
-DONTENTER                    $f136b5      342    bytes
-easy_eaths                   $f140cb      0      bytes
-expand_flags                 $f140cb      0      bytes
-fadeldeath                   $f13fcf      94     bytes
-fadelencounter               $f13dc8      153    bytes
-flags                        $f140ab      31     bytes
-gamesetupbackground          $f140ca      1      bytes
-IntroWithFlags               $f13c7d      167    bytes
-laraintro                    $f11efe      1809   bytes
-Letters                      $f140cb      0      bytes
-mage                         $f13a52      210    bytes
-messyguy                     $f1380b      315    bytes
-mole                         $f133b9      413    bytes
-movements                    $f13ee1      126    bytes
-movement_reloc               $f10c02      2691   bytes
-movscr_codes                 $f13946      268    bytes
-new_game_bgs                 $f13556      351    bytes
-npcmisc                      $f10000      3074   bytes
-oldman                       $f1305d      445    bytes
-savemoogle                   $f1260f      892    bytes
-six_letters                  $f13f5f      112    bytes
-stdext                       $f140cb      0      bytes
-stdext_only_new_commands     $f140cb      0      bytes
-thief                        $f13b24      175    bytes
-variable_movement_WIP        $f1402d      82     bytes
-warp_styles_dx               $f1298b      650    bytes
-whitemage                    $f13bd3      170    bytes
-stdarg                       $f140cb      0      bytes
-std                          $f140cb      0      bytes
+asm65816                     $f14520      0      bytes
+cageband                     $f144d1      44     bytes
+ccexpand                     $f1366c      415    bytes
+cc_asmcall                   $f142b3      128    bytes
+churchnpc1                   $f13067      579    bytes
+churchnpc2                   $f132aa      517    bytes
+churchnpc3                   $f11ad7      2169   bytes
+churchsign                   $f14176      164    bytes
+DONTENTER                    $f13b07      342    bytes
+easy_eaths                   $f14520      0      bytes
+expand_flags                 $f14520      0      bytes
+fadeldeath                   $f14421      94     bytes
+fadelencounter               $f1421a      153    bytes
+flags                        $f144fd      34     bytes
+gamesetupbackground          $f1451f      1      bytes
+IntroWithFlags               $f140cf      167    bytes
+laraintro                    $f12350      1809   bytes
+Letters                      $f14520      0      bytes
+mage                         $f13ea4      210    bytes
+messyguy                     $f13c5d      315    bytes
+mole                         $f1380b      413    bytes
+movements                    $f14333      126    bytes
+movement_reloc               $f11054      2691   bytes
+movscr_codes                 $f13d98      268    bytes
+new_game_bgs                 $f139a8      351    bytes
+npcmisc                      $f10000      4180   bytes
+oldman                       $f134af      445    bytes
+savemoogle                   $f12a61      892    bytes
+six_letters                  $f143b1      112    bytes
+stdext                       $f14520      0      bytes
+stdext_only_new_commands     $f14520      0      bytes
+thief                        $f13f76      175    bytes
+variable_movement_WIP        $f1447f      82     bytes
+warp_styles_dx               $f12ddd      650    bytes
+whitemage                    $f14025      170    bytes
+stdarg                       $f14520      0      bytes
+std                          $f14520      0      bytes
 -----------------------------------------------------------------
 
 
@@ -68,81 +68,81 @@ Name                         Address
 Labels in module cageband
 Name                         Address
 -----------------------------------------------------------------
-message                      $f1407f
+message                      $f144d1
 -----------------------------------------------------------------
 
 
 Labels in module ccexpand
 Name                         Address
 -----------------------------------------------------------------
-CodeTable                    $f1321a
-DoNothing                    $f133b8
-Original1A00                 $f13372
-Original1A01                 $f13379
-Original1A04                 $f13380
-Original1A05                 $f13387
-Original1A06                 $f1338e
-Original1A07                 $f13395
-Original1A08                 $f1339c
-Original1A09                 $f133a3
-Original1A0A                 $f133aa
-Original1A0B                 $f133b1
-R_Get_Argument_Memory        $f1330e
-R_Get_Secondary_Memory       $f1331c
-R_Get_Secondary_Memory_In_A  $f1334a
-R_Get_Working_Memory         $f13315
-R_Increment_Secondary_Memory $f13343
-R_Read_Parameter_Bytes       $f132a2
-R_Set_06_To_Argument_If_Zero $f13300
-R_Set_Argument_Memory        $f1332c
-R_Set_Secondary_Memory       $f1333a
-R_Set_Secondary_Memory_To_A  $f13351
-R_Set_Working_Memory         $f13333
-TableJumpUsing7E00BC         $f13358
+CodeTable                    $f1366c
+DoNothing                    $f1380a
+Original1A00                 $f137c4
+Original1A01                 $f137cb
+Original1A04                 $f137d2
+Original1A05                 $f137d9
+Original1A06                 $f137e0
+Original1A07                 $f137e7
+Original1A08                 $f137ee
+Original1A09                 $f137f5
+Original1A0A                 $f137fc
+Original1A0B                 $f13803
+R_Get_Argument_Memory        $f13760
+R_Get_Secondary_Memory       $f1376e
+R_Get_Secondary_Memory_In_A  $f1379c
+R_Get_Working_Memory         $f13767
+R_Increment_Secondary_Memory $f13795
+R_Read_Parameter_Bytes       $f136f4
+R_Set_06_To_Argument_If_Zero $f13752
+R_Set_Argument_Memory        $f1377e
+R_Set_Secondary_Memory       $f1378c
+R_Set_Secondary_Memory_To_A  $f137a3
+R_Set_Working_Memory         $f13785
+TableJumpUsing7E00BC         $f137aa
 -----------------------------------------------------------------
 
 
 Labels in module cc_asmcall
 Name                         Address
 -----------------------------------------------------------------
-CC_code_AsmCall              $f13e61
+CC_code_AsmCall              $f142b3
 -----------------------------------------------------------------
 
 
 Labels in module churchnpc1
 Name                         Address
 -----------------------------------------------------------------
-message                      $f12c15
+message                      $f13067
 -----------------------------------------------------------------
 
 
 Labels in module churchnpc2
 Name                         Address
 -----------------------------------------------------------------
-message                      $f12e58
+message                      $f132aa
 -----------------------------------------------------------------
 
 
 Labels in module churchnpc3
 Name                         Address
 -----------------------------------------------------------------
-AskAboutLain                 $f11866
-Nevermind                    $f11de0
-message                      $f11685
+AskAboutLain                 $f11cb8
+Nevermind                    $f12232
+message                      $f11ad7
 -----------------------------------------------------------------
 
 
 Labels in module churchsign
 Name                         Address
 -----------------------------------------------------------------
-boardtext                    $f13d24
+boardtext                    $f14176
 -----------------------------------------------------------------
 
 
 Labels in module DONTENTER
 Name                         Address
 -----------------------------------------------------------------
-WARNING                      $f136b5
+WARNING                      $f13b07
 -----------------------------------------------------------------
 
 
@@ -161,48 +161,48 @@ Name                         Address
 Labels in module fadeldeath
 Name                         Address
 -----------------------------------------------------------------
-message                      $f13fcf
+message                      $f14421
 -----------------------------------------------------------------
 
 
 Labels in module fadelencounter
 Name                         Address
 -----------------------------------------------------------------
-message                      $f13dc8
+message                      $f1421a
 -----------------------------------------------------------------
 
 
 Labels in module flags
 Name                         Address
 -----------------------------------------------------------------
-initialize                   $f140ab
+initialize                   $f144fd
 -----------------------------------------------------------------
 
 
 Labels in module gamesetupbackground
 Name                         Address
 -----------------------------------------------------------------
-initialize                   $f140ca
+initialize                   $f1451f
 -----------------------------------------------------------------
 
 
 Labels in module IntroWithFlags
 Name                         Address
 -----------------------------------------------------------------
-Flyover1                     $f13c7d
-Flyover2                     $f13c93
-Flyover3                     $f13cb9
-Intro                        $f13cc9
-IntroFlags                   $f13cd7
-always_text_before_map       $f13d17
+Flyover1                     $f140cf
+Flyover2                     $f140e5
+Flyover3                     $f1410b
+Intro                        $f1411b
+IntroFlags                   $f14129
+always_text_before_map       $f14169
 -----------------------------------------------------------------
 
 
 Labels in module laraintro
 Name                         Address
 -----------------------------------------------------------------
-Encounter                    $f122f2
-initialspeech                $f11efe
+Encounter                    $f12744
+initialspeech                $f12350
 -----------------------------------------------------------------
 
 
@@ -215,30 +215,30 @@ Name                         Address
 Labels in module mage
 Name                         Address
 -----------------------------------------------------------------
-message                      $f13a52
-sayNo                        $f13aff
-sayYes                       $f13abe
+message                      $f13ea4
+sayNo                        $f13f51
+sayYes                       $f13f10
 -----------------------------------------------------------------
 
 
 Labels in module messyguy
 Name                         Address
 -----------------------------------------------------------------
-message                      $f1380b
+message                      $f13c5d
 -----------------------------------------------------------------
 
 
 Labels in module mole
 Name                         Address
 -----------------------------------------------------------------
-message                      $f133b9
+message                      $f1380b
 -----------------------------------------------------------------
 
 
 Labels in module movements
 Name                         Address
 -----------------------------------------------------------------
-detective_custom_walk        $f13ee1
+detective_custom_walk        $f14333
 -----------------------------------------------------------------
 
 
@@ -257,10 +257,10 @@ Name                         Address
 Labels in module new_game_bgs
 Name                         Address
 -----------------------------------------------------------------
-cancel_naming                $f13640
-cancel_new_game              $f135f2
-load_naming_bg               $f135a4
-load_new_game_bg             $f13556
+cancel_naming                $f13a92
+cancel_new_game              $f13a44
+load_naming_bg               $f139f6
+load_new_game_bg             $f139a8
 -----------------------------------------------------------------
 
 
@@ -268,6 +268,7 @@ Labels in module npcmisc
 Name                         Address
 -----------------------------------------------------------------
 Detective1                   $f103a5
+Goro1                        $f10c02
 Maskedguy                    $f10000
 Officer1                     $f105f3
 Officer2                     $f106c1
@@ -281,28 +282,28 @@ Officer6                     $f10bb3
 Labels in module oldman
 Name                         Address
 -----------------------------------------------------------------
-message                      $f1305d
-sayNo                        $f131e1
-sayYes                       $f13156
+message                      $f134af
+sayNo                        $f13633
+sayYes                       $f135a8
 -----------------------------------------------------------------
 
 
 Labels in module savemoogle
 Name                         Address
 -----------------------------------------------------------------
-initial                      $f1260f
-nothing                      $f12914
-savegame                     $f12866
+initial                      $f12a61
+nothing                      $f12d66
+savegame                     $f12cb8
 -----------------------------------------------------------------
 
 
 Labels in module six_letters
 Name                         Address
 -----------------------------------------------------------------
-calc_spacing                 $f13fa6
-sp_buildTargetName           $f13f79
-sp_nameFix                   $f13f87
-sp_nameInStatusMenu          $f13f5f
+calc_spacing                 $f143f8
+sp_buildTargetName           $f143cb
+sp_nameFix                   $f143d9
+sp_nameInStatusMenu          $f143b1
 -----------------------------------------------------------------
 
 
@@ -321,40 +322,40 @@ Name                         Address
 Labels in module thief
 Name                         Address
 -----------------------------------------------------------------
-message                      $f13b24
-sayNo                        $f13bc8
-sayYes                       $f13b90
+message                      $f13f76
+sayNo                        $f1401a
+sayYes                       $f13fe2
 -----------------------------------------------------------------
 
 
 Labels in module variable_movement_WIP
 Name                         Address
 -----------------------------------------------------------------
-actscr_walk_to_coords        $f14058
-asm_walk_to_coords           $f1402d
+actscr_walk_to_coords        $f144aa
+asm_walk_to_coords           $f1447f
 -----------------------------------------------------------------
 
 
 Labels in module warp_styles_dx
 Name                         Address
 -----------------------------------------------------------------
-ColourfulFadeInPatch         $f12b90
-ColourfulFadeOutPatch        $f12b33
-ColourfulPostFadeOutPatch    $f12b6f
-ColourfulSlideSpeedPatch     $f12c0a
-ColourfulWipePalettesLoadMapPatch $f12be9
-ColourfulWipePalettesScreenTransitionPatch $f12bc0
-ExpandedWarpStyles           $f1298f
-FadeColourTable              $f1298b
+ColourfulFadeInPatch         $f12fe2
+ColourfulFadeOutPatch        $f12f85
+ColourfulPostFadeOutPatch    $f12fc1
+ColourfulSlideSpeedPatch     $f1305c
+ColourfulWipePalettesLoadMapPatch $f1303b
+ColourfulWipePalettesScreenTransitionPatch $f13012
+ExpandedWarpStyles           $f12de1
+FadeColourTable              $f12ddd
 -----------------------------------------------------------------
 
 
 Labels in module whitemage
 Name                         Address
 -----------------------------------------------------------------
-message                      $f13bd3
-sayNo                        $f13c74
-sayYes                       $f13c35
+message                      $f14025
+sayNo                        $f140c6
+sayYes                       $f14087
 -----------------------------------------------------------------
 
 
